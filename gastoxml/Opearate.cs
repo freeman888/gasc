@@ -413,22 +413,17 @@ namespace gastoxml
 
             bool isin = false;
             int start = 0;
-            bool lastiszy = false;
             for (int i = 0; i < codes.Count; i++)
             {
                 string code = codes[i].ToString();
+                
                 if (code == "\\")
                 {
-                    lastiszy = true;
+                    i++;
                     //ret_codes.Append("\\");
                     continue;
                 }
-                if (lastiszy)
-                {
-                    lastiszy = false;
-                    //ret_codes.Append(code);
-                    continue;
-                }
+                
 
                 if (code == "\"")
                 {

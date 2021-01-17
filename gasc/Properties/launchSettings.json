@@ -2,7 +2,7 @@
   "profiles": {
     "gasc": {
       "commandName": "Project",
-      "commandLineArgs": "--name hello --targetpath f:\\\\chat\\\\hello --version 1.0 --id 200002 --code f:\\\\chat\\\\background.gas f:\\\\chat\\\\mainpage.gas"
+      "commandLineArgs": "--name App1 --targetpath X:\\projects\\freestudio\\App1\\App1 --version 1.0 --id 200001 --code X:\\projects\\freestudio\\App1\\mainpage.gas"
     }
   }
 }

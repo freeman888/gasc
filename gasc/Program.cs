@@ -25,10 +25,10 @@ namespace gasc
             string version,
             string id,
             string[] code,
-            string[] dep,
-            string[] sup,
-            string writer = "",
-            string helplink = "")
+            string[] dep = null,
+            string[] sup = null,
+            string writer = "personalwriter",
+            string helplink = "gasoline@freeman")
         {
             if(name == null || targetpath == null||
                 version == null||
@@ -59,9 +59,9 @@ namespace gasc
                     str_codes += sr.ReadToEnd()+"\r\n";
                 }
             }
-            if (!Directory.Exists(targetpath + "\\source"))
-                Directory.CreateDirectory(targetpath + "\\source");
-            gastoxml.Out.Gas2IL(str_codes, targetpath + "\\source\\code.xml");
+            if (!Directory.Exists( Path.Combine( targetpath , "source")))
+                Directory.CreateDirectory( Path.Combine( targetpath, "source"));
+            gastoxml.Out.Gas2IL(str_codes,Path.Combine( targetpath , "source","code.xml"));
 
 
             if (dep != null)
@@ -86,7 +86,7 @@ namespace gasc
             rootgaa.AppendChild(xml_dependences);
             rootgaa.AppendChild(xml_supportplatforms);
             xmlDocument.AppendChild(rootgaa);
-            using (Stream sr = new FileStream(targetpath + "\\information.xml", FileMode.OpenOrCreate))
+            using (Stream sr = new FileStream(Path.Combine( targetpath , "information.xml"), FileMode.OpenOrCreate))
             {
                 xmlDocument.Save(sr);
             }
@@ -94,7 +94,7 @@ namespace gasc
 
 
 
-            string gaapath = targetpath + "\\..\\debug\\" + name + ".gaa";
+            string gaapath = Path.Combine( targetpath , "..","debug" , name + ".gaa");
             if (File.Exists(gaapath))
                 File.Delete(gaapath);
             ZipFile.CreateFromDirectory(targetpath, gaapath, CompressionLevel.NoCompression, true);

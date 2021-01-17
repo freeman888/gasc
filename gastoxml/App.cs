@@ -235,7 +235,7 @@ fun Test(t1,t2):
 
                 }
                 else
-                { Console.WriteLine("What Fuck"); return; }
+                { Console.WriteLine("语法错误，没有使用lib 开头"); return; }
                 xmlDocument.AppendChild(xmlElement);
             }
 

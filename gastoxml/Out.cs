@@ -9,7 +9,7 @@ namespace gastoxml
     public static class Out
     {
         /// <summary>
-        /// 从 gas 文件到 IL 文件
+        /// 从 gas 文件到 IL 文件，如果xml文件存在就覆盖
         /// </summary>
         /// <param name="str_gas">gas(string)</param>
         /// <param name="outpath">IL文件地址</param>

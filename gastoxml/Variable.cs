@@ -322,6 +322,7 @@ namespace gastoxml
         public static string ZY(string oldstring)
         {
             return oldstring
+             .Replace("\\\\", "\afxg\a")
              .Replace("\\\"", "\"")
              .Replace("\\,", ",")
              .Replace("\\(", "(")
@@ -329,7 +330,7 @@ namespace gastoxml
              .Replace("\\n", "\n")
              .Replace("\\t", "\t")
              .Replace("\\r", "\r")
-             .Replace("\\\\", "\\");
+             .Replace("\afxg\a","\\");
         }
 
 
