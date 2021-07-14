@@ -113,7 +113,7 @@ namespace gastoxml
             }
             ArrayList ret = new ArrayList();
             codes.RemoveRange(charindex, right - charindex + 1);
-            ret.Add("Math.Not");
+            ret.Add("Not");
             ret.Add("(");
             ret.InsertRange(ret.Count, arr_right);
             ret.Add(")");

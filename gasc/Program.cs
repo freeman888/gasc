@@ -61,6 +61,8 @@ namespace gasc
             }
             if (!Directory.Exists( Path.Combine( targetpath , "source")))
                 Directory.CreateDirectory( Path.Combine( targetpath, "source"));
+            if (!Directory.Exists(Path.Combine(targetpath, "file")))
+                Directory.CreateDirectory(Path.Combine(targetpath, "file"));
             gastoxml.Out.Gas2IL(str_codes,Path.Combine( targetpath , "source","code.xml"));
 
 
@@ -68,8 +70,8 @@ namespace gasc
             {
                 foreach (var i in dep)
                 {
-                    XmlElement xmlElement = xmlDocument.CreateElement("gaa");
-                    xmlElement.InnerText = i;
+                    XmlElement xmlElement = xmlDocument.CreateElement("dependence");
+                    xmlElement.SetAttribute("name", i);
                     xml_dependences.AppendChild(xmlElement);
                 }
             }
@@ -86,7 +88,7 @@ namespace gasc
             rootgaa.AppendChild(xml_dependences);
             rootgaa.AppendChild(xml_supportplatforms);
             xmlDocument.AppendChild(rootgaa);
-            using (Stream sr = new FileStream(Path.Combine( targetpath , "information.xml"), FileMode.OpenOrCreate))
+            using (Stream sr = new FileStream(Path.Combine( targetpath , "information.xml"), FileMode.Create))
             {
                 xmlDocument.Save(sr);
             }

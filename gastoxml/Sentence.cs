@@ -28,7 +28,8 @@ namespace gastoxml
                 {
                     string truecode = code;
                     code = Opearate.SetMathFunction(Variable.Clearspace(code));
-                    string boolname = code.Replace("if(", "").Replace("):", "");
+                    //string boolname = code.Replace("if(", "").Replace("):", "");
+                    string boolname = code.Substring(3, code.Length - 5);
                     index++;
                     ArrayList string_allsentences = new ArrayList();
                     for (; index < array_sentences.Count && array_sentences[index].ToString().Length >= 4 && array_sentences[index].ToString().Substring(0, 4) == "    "; index++)
@@ -61,7 +62,8 @@ namespace gastoxml
                 {
                     string truecode = code;
                     code = Opearate.SetMathFunction(Variable.Clearspace(code));
-                    string boolname = code.Replace("elif(", "").Replace("):", "");
+                    //string boolname = code.Replace("elif(", "").Replace("):", "");
+                    string boolname = code.Substring(5, code.Length - 7);
                     index++;
                     ArrayList string_allsentences = new ArrayList();
                     for (; index < array_sentences.Count && array_sentences[index].ToString().Length >= 4 && array_sentences[index].ToString().Substring(0, 4) == "    "; index++)
@@ -78,7 +80,8 @@ namespace gastoxml
                 {
                     string truecode = code;
                     code = Opearate.SetMathFunction(Variable.Clearspace(code));
-                    string boolname = code.Replace("while(", "").Replace("):", "");
+                    //string boolname = code.Replace("while(", "").Replace("):", "");
+                    string boolname = code.Substring(6, code.Length - 8);
                     index++;
                     ArrayList string_allsentences = new ArrayList();
                     for (; index < array_sentences.Count && array_sentences[index].ToString().Length >= 4 && array_sentences[index].ToString().Substring(0, 4) == "    "; index++)
@@ -162,7 +165,15 @@ namespace gastoxml
                     index++;
                     continue;
                 }
-                //这是while for 等等
+                //这是bpt;
+                else if (code.Length >=4 && code.Substring(0, 3) == "bpt" && end == ";")
+                {
+
+                    string truecode = code;
+                    true_sentences.Add(new New_Sentence_BreakPoint( index + 1) { mycode = truecode });
+                    index++;
+                    continue;
+                }
 
                 //这是var
                 else if (code.Length >= 6 && code.Substring(0, 4) == "var " && end == ";")
@@ -234,6 +245,18 @@ namespace gastoxml
                 XmlElement element = xmlDocument.CreateElement("var_s");
                 element.SetAttribute("varname", refname);
                 element.SetAttribute("str", mycode);
+                xmlElement.AppendChild(element);
+            }
+        }
+        public class New_Sentence_BreakPoint : Sentence
+        {
+            public New_Sentence_BreakPoint( int n)
+            {
+                number = n;
+            }
+            public override void ToXml(XmlDocument xmlDocument, XmlElement xmlElement)
+            {
+                XmlElement element = xmlDocument.CreateElement("breakpoint");
                 xmlElement.AppendChild(element);
             }
         }

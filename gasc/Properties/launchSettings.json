@@ -2,7 +2,7 @@
   "profiles": {
     "gasc": {
       "commandName": "Project",
-      "commandLineArgs": "--name App1 --targetpath X:\\projects\\freestudio\\App1\\App1 --version 1.0 --id 200001 --code X:\\projects\\freestudio\\App1\\mainpage.gas"
+      "commandLineArgs": " --name FreeStudio --targetpath d:\\projects\\freestudio\\FreeStudio\\FreeStudio --version 1.0 --id 100004 --code d:\\projects\\freestudio\\FreeStudio\\mainpage.gas d:\\projects\\freestudio\\FreeStudio\\creatpage.gas d:\\projects\\freestudio\\FreeStudio\\editpage.gas d:\\projects\\freestudio\\FreeStudio\\addplatformpage.gas d:\\projects\\freestudio\\FreeStudio\\gtwpfbuild.gas d:\\projects\\freestudio\\FreeStudio\\configcell.gas d:\\projects\\freestudio\\FreeStudio\\droidbuild.gas d:\\projects\\freestudio\\FreeStudio\\waitingpage.gas"
     }
   }
 }
