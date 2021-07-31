@@ -221,10 +221,12 @@ namespace gastoxml
         /// <returns></returns>
         public static string Clearspace(string basstring)
         {
+            var op = Opearate.SetString(basstring);
+
             ArrayList array_string = new ArrayList();
-            for (int i = 0; i < basstring.Length; i++)
+            for (int i = 0; i < op.donecode.Length; i++)
             {
-                array_string.Add(basstring.Substring(i, 1));
+                array_string.Add(op.donecode.Substring(i, 1));
             }
             //开始清理 
             bool isinstring = false;
@@ -262,7 +264,7 @@ namespace gastoxml
             {
                 sb.Append(s);
             }
-            return sb.ToString();
+            return string.Format( sb.ToString(),op.stringes);
         }
 
 
