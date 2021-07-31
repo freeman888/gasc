@@ -72,19 +72,21 @@ namespace gastoxml
                 //3、判断为方法
                 else if (endform == ")")
                 {
-                    ArrayList al = new ArrayList();
-                    for (int i = 0; i < form.Length; i++)
+                    var newop = Opearate.SetString(form);
+                    var newal = new ArrayList();
+                    for(int i = 0;i <newop.donecode.Length;i++)
                     {
-                        al.Add(form.Substring(i, 1));
+                        newal.Add(newop.donecode.Substring(i, 1));
                     }
 
                     condition = 3;
                     //int khpos = form.IndexOf("(");
-                    int khpos = Opearate.FindLeft(al, al.Count - 1, new string[0]) - 1;
-                    functionname = form.Substring(0, khpos);
+                    int khpos = Opearate.FindLeft(newal, newal.Count - 1, new string[0]) - 1;
+                    functionname = string.Format( newop.donecode.Substring(0, khpos),newop.stringes);
                     //O.M(1,2)
                     functionresulter = new Resulter(functionname);
-                    csname = form.Substring(khpos + 1, form.Length - khpos - 2);
+                    var str = newop.donecode.Substring(khpos + 1, newop.donecode.Length - khpos - 2);
+                    csname = string.Format( newop.donecode.Substring(khpos + 1, newop.donecode.Length - khpos - 2),newop.stringes);
                     if (csname == "")
                     {
                         childresulters = new Resulter[0];
@@ -158,12 +160,14 @@ namespace gastoxml
             /// <returns></returns>
             public static string SetOutDH(string csname)
             {
+                var op = Opearate.SetString(csname);
+
                 int cc = 0;
                 bool isinstring = false;
                 ArrayList arr_string = new ArrayList();
-                for (int i = 0; i < csname.Length; i++)
+                for (int i = 0; i < op.donecode.Length; i++)
                 {
-                    arr_string.Add(csname.Substring(i, 1));
+                    arr_string.Add(op.donecode.Substring(i, 1));
                 }
                 for (int i = 0; i < arr_string.Count; i++)
                 {
@@ -184,7 +188,7 @@ namespace gastoxml
                 {
                     sb.Append(s);
                 }
-                return sb.ToString();
+                return string.Format( sb.ToString(),op.stringes);
             }
 
             public static Resulter[] GetResultersformcs(string csname)

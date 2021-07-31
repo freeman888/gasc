@@ -396,8 +396,8 @@ namespace gastoxml
         }
 
 
-        string[] stringes;
-        string donecode;
+        internal string[] stringes;
+        internal string donecode;
 
         public static Opearate SetString(string str_code)
         {
