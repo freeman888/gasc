@@ -212,7 +212,7 @@ fun Test(t1,t2):
         public static void AyalyseCode(string sourcecode, XmlDocument xmlDocument, string outpath)
         {
             XmlElement xmlElement = xmlDocument.CreateElement("code");
-            xmlElement.SetAttribute("minversion", "2007");
+            xmlElement.SetAttribute("minversion", "2108");
             string[] codes = sourcecode.Split(new string[] { "\r\n" }, StringSplitOptions.None);
             for (var index = 0; index < codes.Length;)
             {
@@ -335,17 +335,37 @@ fun Test(t1,t2):
         private static void ClsCreat(string cls, List<string> clscontents, XmlDocument xmlDocument, XmlElement x_lib)
         {
             XmlElement x_cls = xmlDocument.CreateElement("cls");
-            string cls_name = cls, cls_parent = "";
+            string cls_name = "", cls_parent = "";
+            string[] atts = null;
             var i = cls.IndexOf("(");
             if (i != -1)
             {
-                cls_name = cls.Substring(0, i);
+                
+
+                atts = Regex.Split( cls.Substring(0, i)," +");
+                cls_name = atts[atts.Length - 1];
+                
                 cls_parent = cls.Substring(i + 1, cls.IndexOf(")") - i - 1);
 
+            }
+            else
+            {
+                atts = Regex.Split(cls, " +");
+                cls_name = atts[atts.Length - 1];
             }
 
             x_cls.SetAttribute("name", cls_name);
             x_cls.SetAttribute("parent", cls_parent);
+            if(new ArrayList(atts).IndexOf("cvf") != -1)
+            {
+                x_cls.SetAttribute("cvf", "True");
+            }
+            else
+            {
+
+                x_cls.SetAttribute("cvf", "False");
+            }
+
             for (var index = 0; index < clscontents.Count;)
             {
                 var code = clscontents[index];

@@ -174,7 +174,24 @@ namespace gastoxml
                     index++;
                     continue;
                 }
+                //这是break;
+                else if (code.Length >= 6 && code.Substring(0, 5) == "break" && end == ";")
+                {
 
+                    string truecode = code;
+                    true_sentences.Add(new New_Swntence_Break(index + 1) { mycode = truecode });
+                    index++;
+                    continue;
+                }
+                //这是continue;
+                else if (code.Length >= 9 && code.Substring(0, 8) == "continue" && end == ";")
+                {
+
+                    string truecode = code;
+                    true_sentences.Add(new New_Swntence_Continue(index + 1) { mycode = truecode });
+                    index++;
+                    continue;
+                }
                 //这是var
                 else if (code.Length >= 6 && code.Substring(0, 4) == "var " && end == ";")
                 {
@@ -257,6 +274,32 @@ namespace gastoxml
             public override void ToXml(XmlDocument xmlDocument, XmlElement xmlElement)
             {
                 XmlElement element = xmlDocument.CreateElement("breakpoint");
+                xmlElement.AppendChild(element);
+            }
+        }
+        public class New_Swntence_Break: Sentence
+        {
+            public New_Swntence_Break(int n)
+            {
+                number = n;
+            }
+            public override void ToXml(XmlDocument xmlDocument, XmlElement xmlElement)
+            {
+                XmlElement element = xmlDocument.CreateElement("break_s");
+                element.SetAttribute("str", mycode);
+                xmlElement.AppendChild(element);
+            }
+        }
+        public class New_Swntence_Continue : Sentence
+        {
+            public New_Swntence_Continue(int n)
+            {
+                number = n;
+            }
+            public override void ToXml(XmlDocument xmlDocument, XmlElement xmlElement)
+            {
+                XmlElement element = xmlDocument.CreateElement("continue_s");
+                element.SetAttribute("str", mycode);
                 xmlElement.AppendChild(element);
             }
         }
