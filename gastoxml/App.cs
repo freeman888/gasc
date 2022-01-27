@@ -83,7 +83,7 @@ fun Test(t1,t2):
             {
 
                 string[] codes = sourcecode.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-                Hashtable functions = new Hashtable(), variables = new Hashtable();
+                Hashtable functions = new Hashtable();
                 XmlElement x_lib = null, x_dflib = xmlDocument.CreateElement("lib");
                 for (int index = 0; index < codes.Length;)
                 {
@@ -159,9 +159,11 @@ fun Test(t1,t2):
                             {
                                 array_str_sentences.Add(codes[index].Substring(4, codes[index].Length - 4));
                             }
-                            Function.New_User_Function new_User_Function = new Function.New_User_Function(functionname, xcname);
-                            new_User_Function.isreffunction = isref;
-                            new_User_Function.sentences = Sentence.GetSentencesfromArrayList(array_str_sentences);
+                            Function.New_User_Function new_User_Function = new Function.New_User_Function(functionname, xcname)
+                            {
+                                isreffunction = isref,
+                                sentences = Sentence.GetSentencesfromArrayList(array_str_sentences)
+                            };
                             functions.Add(functionname, new_User_Function);
 
 
@@ -305,9 +307,11 @@ fun Test(t1,t2):
                     {
                         array_str_sentences.Add(libcontents[index].Substring(4, libcontents[index].Length - 4));
                     }
-                    Function.New_User_Function new_User_Function = new Function.New_User_Function(functionname, xcname);
-                    new_User_Function.isreffunction = isref;
-                    new_User_Function.sentences = Sentence.GetSentencesfromArrayList(array_str_sentences);
+                    Function.New_User_Function new_User_Function = new Function.New_User_Function(functionname, xcname)
+                    {
+                        isreffunction = isref,
+                        sentences = Sentence.GetSentencesfromArrayList(array_str_sentences)
+                    };
                     //functions.Add(functionname, new_User_Function);
 
 
@@ -334,6 +338,7 @@ fun Test(t1,t2):
 
         private static void ClsCreat(string cls, List<string> clscontents, XmlDocument xmlDocument, XmlElement x_lib)
         {
+
             XmlElement x_cls = xmlDocument.CreateElement("cls");
             string cls_name = "", cls_parent = "";
             string[] atts = null;
@@ -394,31 +399,63 @@ fun Test(t1,t2):
                     string adj, functionname, xcname;
                     adj = content.Substring(0, content.IndexOf("("));
                     List<string> list = new List<string>(Regex.Split(adj, " +"));
+                    list.RemoveAll(str => str == "");
                     functionname = list[list.Count - 1];
-                    if (list.IndexOf("ref") != -1)
-                        isref = true;
-                    if (list.IndexOf("static") != -1)
-                        _static = true;
-                    xcname = content.Substring(content.IndexOf("(") + 1, content.LastIndexOf(")") - content.IndexOf("(") - 1);
-
-                    index++;
-                    ArrayList array_str_sentences = new ArrayList();
-                    for (; index < clscontents.Count && clscontents[index].Length >= 4 && clscontents[index].Substring(0, 4) == "    "; index++)
+                    if (functionname == "init")
                     {
-                        array_str_sentences.Add(clscontents[index].Substring(4, clscontents[index].Length - 4));
+                        string basestr = "";
+                        if(Regex.IsMatch(content, @"^\s{0,}init\s{0,}\(.+\)\s{0,}:\s{0,}base\s{0,}\(.+\)\s{0,}$"))
+                        {
+                            basestr = Regex.Match(content, @"base\s{0,}\(.+\)\s{0,}$").Value;
+                        }
+                        if (list.IndexOf("ref") != -1)
+                            isref = true;
+                        xcname = content.Substring(content.IndexOf("(") + 1, content.IndexOf(")") - content.IndexOf("(") - 1);
+                        index++;
+                        ArrayList array_str_sentences = new ArrayList();
+                        for (; index < clscontents.Count && clscontents[index].Length >= 4 && clscontents[index].Substring(0, 4) == "    "; index++)
+                        {
+                            array_str_sentences.Add(clscontents[index].Substring(4, clscontents[index].Length - 4));
+                        }
+                        var new_init_Function = new Function.New_Init_Function(xcname, basestr)
+                        {
+                            isreffunction = isref,
+                            sentences = Sentence.GetSentencesfromArrayList(array_str_sentences)
+                        };
+                        //functions.Add(functionname, new_User_Function);
+
+
+                        new_init_Function.ToXml(xmlDocument, x_cls);
                     }
-                    Function.New_Member_Function new_User_Function = new Function.New_Member_Function(functionname, xcname, _static);
-                    new_User_Function.isreffunction = isref;
-                    new_User_Function.sentences = Sentence.GetSentencesfromArrayList(array_str_sentences);
-                    //functions.Add(functionname, new_User_Function);
+                    else
+                    {
+                        if (list.IndexOf("ref") != -1)
+                            isref = true;
+                        if (list.IndexOf("static") != -1)
+                            _static = true;
+                        xcname = content.Substring(content.IndexOf("(") + 1, content.LastIndexOf(")") - content.IndexOf("(") - 1);
+
+                        index++;
+                        ArrayList array_str_sentences = new ArrayList();
+                        for (; index < clscontents.Count && clscontents[index].Length >= 4 && clscontents[index].Substring(0, 4) == "    "; index++)
+                        {
+                            array_str_sentences.Add(clscontents[index].Substring(4, clscontents[index].Length - 4));
+                        }
+                        Function.New_Member_Function new_User_Function = new Function.New_Member_Function(functionname, xcname, _static)
+                        {
+                            isreffunction = isref,
+                            sentences = Sentence.GetSentencesfromArrayList(array_str_sentences)
+                        };
+                        //functions.Add(functionname, new_User_Function);
 
 
-                    new_User_Function.ToXml(xmlDocument, x_cls);
-
+                        new_User_Function.ToXml(xmlDocument, x_cls);
+                    }
                     //432432432fafa
                 }
                 else {
-                    Console.WriteLine("Wrong!"); return; }
+                    throw new Exceptions(Exceptions.ID.类内部出现未知代号) { message="类名："+cls_name};
+                }
 
             }
             x_lib.AppendChild(x_cls);

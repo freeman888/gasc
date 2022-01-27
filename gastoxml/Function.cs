@@ -107,5 +107,36 @@ namespace gastoxml
             }
         }
 
+        public class New_Init_Function : Function
+        {
+            public Sentence[] sentences;
+            public Variable.Resulter resulter = null;
+            public New_Init_Function(string fxc, string basstr)
+            {
+                if(!string.IsNullOrEmpty(basstr))
+                    resulter = new Variable.Resulter(basstr);
+                str_xcname = fxc;
+            }
+            public void ToXml(XmlDocument xmlDocument, XmlElement xmlElement)
+            {
+                XmlElement myfun = xmlDocument.CreateElement("initfun");
+                var basefun = xmlDocument.CreateElement("base");
+                if(resulter != null)
+                    resulter.ToXml(xmlDocument, basefun);
+
+                var xmlsentroot = xmlDocument.CreateElement("sentences");
+                myfun.SetAttribute("params", str_xcname);
+                myfun.SetAttribute("isref", isreffunction.ToString());
+                foreach (var i in sentences)
+                {
+                    i.ToXml(xmlDocument, xmlsentroot);
+                }
+                myfun.AppendChild(basefun);
+                myfun.AppendChild(xmlsentroot);
+                xmlElement.AppendChild(myfun);
+            }
+        }
+
+
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.CommandLine;
 using System.Xml;
 
 namespace gasc
@@ -39,7 +38,7 @@ namespace gasc
                 Console.WriteLine("Please check the command params.\nUsing --help to get the usage");
             }
             //设置基本信息
-            XmlDocument xmlDocument = new XmlDocument();
+            XmlDocument xmlDocument = new();
             XmlElement rootgaa = xmlDocument.CreateElement("gaa");
             rootgaa.SetAttribute("name", name);
             rootgaa.SetAttribute("source", "gas");
@@ -54,15 +53,11 @@ namespace gasc
             string str_codes = "";
             foreach(var i in code)
             {
-                using (StreamReader sr = new StreamReader(i))
-                {
-                    str_codes += sr.ReadToEnd()+"\r\n";
-                }
+                using StreamReader sr = new(i);
+                str_codes += sr.ReadToEnd() + "\r\n";
             }
-            if (!Directory.Exists( Path.Combine( targetpath , "source")))
-                Directory.CreateDirectory( Path.Combine( targetpath, "source"));
-            if (!Directory.Exists(Path.Combine(targetpath, "file")))
-                Directory.CreateDirectory(Path.Combine(targetpath, "file"));
+            if (!Directory.Exists( Path.Combine( targetpath , "source"))) Directory.CreateDirectory( Path.Combine( targetpath, "source"));
+            if (!Directory.Exists(Path.Combine(targetpath, "file"))) Directory.CreateDirectory(Path.Combine(targetpath, "file"));
             gastoxml.Out.Gas2IL(str_codes,Path.Combine( targetpath , "source","code.xml"));
 
 

@@ -36,8 +36,10 @@ namespace gastoxml
                     {
                         string_allsentences.Add(array_sentences[index].ToString().Substring(4, array_sentences[index].ToString().Length - 4));
                     }
-                    New_Sentence_if sif = new New_Sentence_if(boolname, string_allsentences);
-                    sif.mycode = truecode;
+                    New_Sentence_if sif = new New_Sentence_if(boolname, string_allsentences)
+                    {
+                        mycode = truecode
+                    };
                     true_sentences.Add(sif);
                 }
                 //这是else
@@ -88,8 +90,10 @@ namespace gastoxml
                     {
                         string_allsentences.Add(array_sentences[index].ToString().Substring(4, array_sentences[index].ToString().Length - 4));
                     }
-                    New_Sentence_while sif = new New_Sentence_while(boolname, string_allsentences);
-                    sif.mycode = truecode;
+                    New_Sentence_while sif = new New_Sentence_while(boolname, string_allsentences)
+                    {
+                        mycode = truecode
+                    };
                     true_sentences.Add(sif);
                 }
                 //这是try
@@ -103,14 +107,15 @@ namespace gastoxml
                     {
                         string_allsentences.Add(array_sentences[index].ToString().Substring(4, array_sentences[index].ToString().Length - 4));
                     }
-                    New_Sentence_try sif = new New_Sentence_try(string_allsentences);
-                    sif.mycode = truecode;
+                    New_Sentence_try sif = new New_Sentence_try(string_allsentences)
+                    {
+                        mycode = truecode
+                    };
                     true_sentences.Add(sif);
                 }
                 //这是catch
                 else if (code.Length >= 9 && code.Substring(0, 5) == "catch" && end == ":")
                 {
-                    string truecode = code;
                     code = Opearate.SetMathFunction(Variable.Clearspace(code));
                     //string boolname = code.Replace("else(", "").Replace("):", "");
                     index++;
@@ -151,8 +156,10 @@ namespace gastoxml
                     {
                         string_allsentences.Add(array_sentences[index].ToString().Substring(4, array_sentences[index].ToString().Length - 4));
                     }
-                    New_Sentence_foreach sif = new New_Sentence_foreach(dfz, you, string_allsentences);
-                    sif.mycode = truecode;
+                    New_Sentence_foreach sif = new New_Sentence_foreach(dfz, you, string_allsentences)
+                    {
+                        mycode = truecode
+                    };
                     true_sentences.Add(sif);
                 }
                 //这是ruturn(aa);
@@ -251,7 +258,7 @@ namespace gastoxml
         /// </summary>
         public class New_Sentence_Newref : Sentence
         {
-            private string refname;
+            private readonly string refname;
             public New_Sentence_Newref(string refname, int n)
             {
                 number = n;
@@ -305,7 +312,7 @@ namespace gastoxml
         }
         public class New_Sentence_Return : Sentence
         {
-            Variable.Resulter resulter;
+            readonly Variable.Resulter resulter;
             public New_Sentence_Return(string xret_name, int n)
             {
                 number = n;
@@ -379,7 +386,9 @@ namespace gastoxml
         }
         public class New_Sentence_GiveResult : Sentence
         {
-            Variable.Resulter resulter, togive;
+            private readonly Variable.Resulter resulter;
+            private readonly Variable.Resulter togive;
+
             /// <summary>
             /// 构造Giveresult
             /// </summary>
@@ -402,7 +411,7 @@ namespace gastoxml
         }
         public class New_Sentence_Usefunction : Sentence
         {
-            Variable.Resulter resulter;
+            readonly Variable.Resulter resulter;
             public New_Sentence_Usefunction(string xrs)
             {
                 resulter = new Variable.Resulter(xrs);
@@ -476,10 +485,10 @@ namespace gastoxml
         }
         public class New_Sentence_foreach : Sentence
         {
-            Variable.Resulter resulter;
-            string fzvar;//待赋值变量
+            readonly Variable.Resulter resulter;
+            readonly string fzvar;//待赋值变量
             public Sentence[] childsentences;
-            bool var_new = false;
+            readonly bool var_new = false;
             /// <summary>
             /// 构造foreach
             /// </summary>

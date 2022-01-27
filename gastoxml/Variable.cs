@@ -85,7 +85,6 @@ namespace gastoxml
                     functionname = string.Format( newop.donecode.Substring(0, khpos),newop.stringes);
                     //O.M(1,2)
                     functionresulter = new Resulter(functionname);
-                    var str = newop.donecode.Substring(khpos + 1, newop.donecode.Length - khpos - 2);
                     csname = string.Format( newop.donecode.Substring(khpos + 1, newop.donecode.Length - khpos - 2),newop.stringes);
                     if (csname == "")
                     {

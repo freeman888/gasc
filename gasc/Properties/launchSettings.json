@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "gasc": {
+    "配置文件 2": {
       "commandName": "Project",
-      "commandLineArgs": "--name HashTable --targetpath D:\\projects\\Libs\\HashTable\\HashTable --version 1.0 --id 628264 --code D:\\projects\\Libs\\HashTable\\Main.gas"
+      "commandLineArgs": "--name App1 --targetpath e:\\projects\\freestudio\\App1\\App1 --version 1.0 --id 200001 --code e:\\projects\\freestudio\\App1\\mainpage.gas"
     }
   }
 }
