@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gastoxml", "gastoxml\gastox
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gasctest", "gasctest\gasctest.csproj", "{CC0415E6-F3E2-457D-8168-1AA3CA031BD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xmltocs", "xmltocs\xmltocs.csproj", "{0AB060E9-7ECD-4CFB-AFB6-1403B7CE8FDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xml2cs", "xml2cs\xml2cs.csproj", "{7D356035-E336-4877-9BE8-D7A3E7BD6A2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{CC0415E6-F3E2-457D-8168-1AA3CA031BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC0415E6-F3E2-457D-8168-1AA3CA031BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC0415E6-F3E2-457D-8168-1AA3CA031BD0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0AB060E9-7ECD-4CFB-AFB6-1403B7CE8FDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AB060E9-7ECD-4CFB-AFB6-1403B7CE8FDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AB060E9-7ECD-4CFB-AFB6-1403B7CE8FDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AB060E9-7ECD-4CFB-AFB6-1403B7CE8FDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D356035-E336-4877-9BE8-D7A3E7BD6A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D356035-E336-4877-9BE8-D7A3E7BD6A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D356035-E336-4877-9BE8-D7A3E7BD6A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D356035-E336-4877-9BE8-D7A3E7BD6A2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

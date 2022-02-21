@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\gastoxml\gastoxml.csproj" />
+    <ProjectReference Include="..\xml2cs\xml2cs.csproj" />
   </ItemGroup>
 
 </Project>

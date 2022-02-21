@@ -8,7 +8,7 @@ namespace gastoxml
 {
     public interface IFunction
     {
-        object IRun(Hashtable xc);
+        
         string Istr_xcname { get; set; }
         bool Iisreffunction { get; set; }
 
@@ -17,10 +17,7 @@ namespace gastoxml
     public partial class Function : IFunction
     {
         //实现IFunction
-        public object IRun(Hashtable xc)
-        {
-            return Run(xc);
-        }
+        
         string IFunction.Istr_xcname
         {
             get
@@ -45,13 +42,6 @@ namespace gastoxml
         }
 
 
-        /// <summary>
-        /// 父类
-        /// </summary>
-        public class Head
-        {
-            public virtual void AddFunctions(Hashtable h) { }
-        }
         public virtual object Run(Hashtable xc)//父方法
         {
 

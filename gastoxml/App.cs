@@ -214,7 +214,7 @@ fun Test(t1,t2):
         public static void AyalyseCode(string sourcecode, XmlDocument xmlDocument, string outpath)
         {
             XmlElement xmlElement = xmlDocument.CreateElement("code");
-            xmlElement.SetAttribute("minversion", "2108");
+            xmlElement.SetAttribute("minversion", "2202");
             string[] codes = sourcecode.Split(new string[] { "\r\n" }, StringSplitOptions.None);
             for (var index = 0; index < codes.Length;)
             {
@@ -404,9 +404,9 @@ fun Test(t1,t2):
                     if (functionname == "init")
                     {
                         string basestr = "";
-                        if(Regex.IsMatch(content, @"^\s{0,}init\s{0,}\(.+\)\s{0,}:\s{0,}base\s{0,}\(.+\)\s{0,}$"))
+                        if(Regex.IsMatch(content, @"^\s{0,}init\s{0,}\(.{0,}\)\s{0,}:\s{0,}base\s{0,}\(.{0,}\)\s{0,}$"))
                         {
-                            basestr = Regex.Match(content, @"base\s{0,}\(.+\)\s{0,}$").Value;
+                            basestr = Regex.Match(content, @"base\s{0,}\(.{0,}\)\s{0,}$").Value;
                         }
                         if (list.IndexOf("ref") != -1)
                             isref = true;
